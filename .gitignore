@@ -6,6 +6,13 @@ scim-db.env
 # Docker
 docker-compose.yml
 
+# Old Dockerfiles (not needed for production)
+api-gateway/Dockerfile
+auth-service/Dockerfile
+frontend/Dockerfile
+inventory-service/Dockerfile
+warehouse-service/Dockerfile
+
 # IDE
 .vscode/
 .idea/
@@ -20,6 +27,9 @@ Thumbs.db
 # Logs
 *.log
 logs/
+
+# Database
+database/
 
 # Add these to reduce deployment size
 node_modules/
