@@ -1,0 +1,22 @@
+# Environment files
+.env
+scim-db.env
+*.env
+
+# Docker
+docker-compose.yml
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
