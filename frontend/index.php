@@ -1,6 +1,7 @@
 <?php
 // Ensure this is served as HTML
 header("Content-Type: text/html; charset=UTF-8");
+header('X-Debug: frontend-hit');
 ?>
 <!DOCTYPE html>
 <html lang="en">
