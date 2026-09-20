@@ -1,6 +1,6 @@
 <?php
+// Set proper content type for HTML pages
 header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $uriSegments = explode('/', trim($uri, '/'));
@@ -11,6 +11,7 @@ $endpoint = $uriSegments[0] ?? '';
 switch ($endpoint) {
     case 'api':
         // API Gateway routes
+        header("Content-Type: application/json; charset=UTF-8");
         $apiEndpoint = $uriSegments[1] ?? '';
         switch ($apiEndpoint) {
             case 'auth':
@@ -30,20 +31,24 @@ switch ($endpoint) {
         break;
     
     case 'auth':
+        header("Content-Type: application/json; charset=UTF-8");
         include 'auth-service/index.php';
         break;
     
     case 'warehouse':
+        header("Content-Type: application/json; charset=UTF-8");
         include 'warehouse-service/index.php';
         break;
     
     case 'inventory':
+        header("Content-Type: application/json; charset=UTF-8");
         include 'inventory-service/index.php';
         break;
     
     case '':
     case 'index.php':
-        // Serve frontend
+        // Serve frontend as HTML
+        header("Content-Type: text/html; charset=UTF-8");
         include 'frontend/index.php';
         break;
     
@@ -57,18 +62,21 @@ switch ($endpoint) {
                 'png' => 'image/png',
                 'jpg' => 'image/jpeg',
                 'svg' => 'image/svg+xml',
-                'ico' => 'image/x-icon'
+                'ico' => 'image/x-icon',
+                'html' => 'text/html'
             ];
             
             $extension = pathinfo($frontendPath, PATHINFO_EXTENSION);
             if (isset($mimeTypes[$extension])) {
-                header("Content-Type: " . $mimeTypes[$extension]);
+                header("Content-Type: " . $mimeTypes[$extension] . "; charset=UTF-8");
                 readfile($frontendPath);
             } else {
+                header("Content-Type: text/html; charset=UTF-8");
                 include 'frontend/index.php';
             }
         } else {
             // Default to frontend for SPA routing
+            header("Content-Type: text/html; charset=UTF-8");
             include 'frontend/index.php';
         }
         break;
