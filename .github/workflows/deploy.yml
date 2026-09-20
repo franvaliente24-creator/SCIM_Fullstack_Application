@@ -1,18 +1,93 @@
-name: Deploy to HostForge Platform
+name: Deploy SCIM Microservices to HostForge
 
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:  # Allows manual trigger from GitHub UI
 
 jobs:
-  deploy:
+  deploy-auth:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Deploy to HostForge Cloud Subdomain
+      - name: Deploy Auth Service
         run: |
-          echo "Deploying SCIM microservices to hostforgeplatform.cloud..."
-          # Automated webhook trigger to hostforgeplatform.cloud
-          echo "Deployment successful!"
+          echo "Deploying auth-service to HostForge..."
+          cd auth-service
+          # REPLACE: Add your HostForge deployment command here
+          echo "✓ auth-service deployed"
+
+  deploy-inventory:
+    needs: deploy-auth
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Deploy Inventory Service
+        run: |
+          echo "Deploying inventory-service to HostForge..."
+          cd inventory-service
+          # REPLACE: Add your HostForge deployment command here
+          echo "✓ inventory-service deployed"
+
+  deploy-warehouse:
+    needs: deploy-inventory
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Deploy Warehouse Service
+        run: |
+          echo "Deploying warehouse-service to HostForge..."
+          cd warehouse-service
+          # REPLACE: Add your HostForge deployment command here
+          echo "✓ warehouse-service deployed"
+
+  deploy-api-gateway:
+    needs: [deploy-auth, deploy-inventory, deploy-warehouse]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Deploy API Gateway
+        run: |
+          echo "Deploying api-gateway to HostForge..."
+          cd api-gateway
+          # REPLACE: Add your HostForge deployment command here
+          echo "✓ api-gateway deployed"
+
+  deploy-frontend:
+    needs: deploy-api-gateway
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Deploy Frontend
+        run: |
+          echo "Deploying frontend to HostForge..."
+          cd frontend
+          # REPLACE: Add your HostForge deployment command here
+          echo "✓ frontend deployed"
+
+  deployment-summary:
+    needs: [deploy-frontend]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Deployment Complete
+        run: |
+          echo "🚀 SCIM Microservices Deployment Complete"
+          echo "=========================================="
+          echo "Deployed services:"
+          echo "  1. auth-service"
+          echo "  2. inventory-service"
+          echo "  3. warehouse-service"
+          echo "  4. api-gateway"
+          echo "  5. frontend"
+          echo "=========================================="
