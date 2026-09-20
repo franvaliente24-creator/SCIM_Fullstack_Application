@@ -1,0 +1,16 @@
+RewriteEngine On
+
+# API routes
+RewriteRule ^api/auth$ auth-service/index.php [L]
+RewriteRule ^api/warehouse$ warehouse-service/index.php [L]
+RewriteRule ^api/inventory$ inventory-service/index.php [L]
+
+# Direct service routes
+RewriteRule ^auth$ auth-service/index.php [L]
+RewriteRule ^warehouse$ warehouse-service/index.php [L]
+RewriteRule ^inventory$ inventory-service/index.php [L]
+
+# Frontend SPA routing - serve index.php for non-API routes
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ frontend/index.php [L]
