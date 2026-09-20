@@ -20,3 +20,9 @@ Thumbs.db
 # Logs
 *.log
 logs/
+
+# Add these to reduce deployment size
+node_modules/
+vendor/
+*.log
+.DS_Store
