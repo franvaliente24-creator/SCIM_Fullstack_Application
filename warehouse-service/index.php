@@ -1,0 +1,1 @@
+<?php echo json_encode(["service" => "Warehouse Service", "status" => "active"]); ?>

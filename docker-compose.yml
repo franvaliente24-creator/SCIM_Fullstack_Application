@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "8080:80"
+    environment:
+      - DB_HOST=db
+      - DB_NAME=scim_db
+      - DB_USER=scim_user
+      - DB_PASS=secretpassword
+    depends_on:
+      - db
+
+  auth-service:
+    build: ./auth-service
+    expose:
+      - "80"
+    environment:
+      - DB_HOST=db
+      - DB_NAME=scim_db
+      - DB_USER=scim_user
+      - DB_PASS=secretpassword
+
+  warehouse-service:
+    build: ./warehouse-service
+    expose:
+      - "80"
+    environment:
+      - DB_HOST=db
+      - DB_NAME=scim_db
+      - DB_USER=scim_user
+      - DB_PASS=secretpassword
+
+  inventory-service:
+    build: ./inventory-service
+    expose:
+      - "80"
+    environment:
+      - DB_HOST=db
+      - DB_NAME=scim_db
+      - DB_USER=scim_user
+      - DB_PASS=secretpassword
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "80:80"
+    environment:
+      - API_GATEWAY_URL=http://api-gateway
+
+  db:
+    image: mariadb:10.11
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: scim_db
+      MYSQL_USER: scim_user
+      MYSQL_PASSWORD: secretpassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+
+volumes:
+  db_data:

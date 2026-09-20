@@ -1,0 +1,1 @@
+<?php echo json_encode(["service" => "Auth Service", "status" => "active"]); ?>
