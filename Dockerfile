@@ -13,8 +13,8 @@ COPY inventory-service /var/www/html/inventory-service
 COPY warehouse-service /var/www/html/warehouse-service
 COPY frontend /var/www/html/frontend
 
-# Copy the main HTML file
-COPY index.html /var/www/html/index.html
+# Copy the main entry point
+COPY index.php /var/www/html/index.php
 
 # Copy API routing file
 COPY api.php /var/www/html/api.php
@@ -27,7 +27,7 @@ RUN echo "DocumentRoot /var/www/html" > /etc/apache2/sites-available/000-default
 RUN echo "<Directory /var/www/html>" >> /etc/apache2/sites-available/000-default.conf
 RUN echo "    AllowOverride All" >> /etc/apache2/sites-available/000-default.conf
 RUN echo "    Require all granted" >> /etc/apache2/sites-available/000-default.conf
-RUN echo "    DirectoryIndex index.html index.php" >> /etc/apache2/sites-available/000-default.conf
+RUN echo "    DirectoryIndex index.php index.html" >> /etc/apache2/sites-available/000-default.conf
 RUN echo "</Directory>" >> /etc/apache2/sites-available/000-default.conf
 
 EXPOSE 80
