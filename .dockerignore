@@ -1,0 +1,6 @@
+.git
+.github
+database
+*.md
+.env
+scim-db.env
