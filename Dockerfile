@@ -12,6 +12,8 @@ COPY warehouse-service /var/www/html/warehouse-service
 COPY frontend /var/www/html/frontend
 COPY index.php /var/www/html/index.php
 COPY api.php /var/www/html/api.php
+COPY login.php /var/www/html/login.php
+COPY health.php /var/www/html/health.php
 
 # Set permissions and configure Apache in single layer
 RUN chown -R www-data:www-data /var/www/html && \
