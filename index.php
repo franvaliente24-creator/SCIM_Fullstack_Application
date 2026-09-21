@@ -4,5 +4,5 @@ header("Content-Type: text/html; charset=UTF-8");
 header("Access-Control-Allow-Origin: *");
 
 // Include the frontend
-include 'frontend/index.php';
+include 'login.php';
 ?>

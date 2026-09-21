@@ -38,7 +38,7 @@
         .main-container { flex-grow: 1; display: flex; flex-direction: column; overflow: hidden; }
         
         /* Header */
-        header { height: 70px; background: #ffffff; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; padding: 0 24px; }
+        header { height: 75px; background: #ffffff; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; padding: 0 24px; }
         .header-left { display: flex; align-items: center; gap: 20px; }
         .toggle-btn { background: none; border: none; font-size: 20px; cursor: pointer; color: #64748b; }
         .header-right { display: flex; align-items: center; gap: 20px; position: relative; }
